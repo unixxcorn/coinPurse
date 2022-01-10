@@ -1,4 +1,3 @@
-import { Coin } from "./Models/Coin";
-import { Purse } from "./Models/CoinPurse";
+import { Purse } from "./Models/Purse";
 
 export const Database: {[owner:string]:Purse} = {}

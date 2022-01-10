@@ -1,6 +1,11 @@
 import { Database } from '../database'
 import { Coin } from './Coin'
 
+/**
+ * เป๋าตังใส่เหรียญ
+ * ตอนสร้างให้ระบุจำนวนเหรียญที่ใส่ได้
+ * ถ้าไม่ใส่จะเป็น 50
+ */
 export class Purse {
     private coins: Array<Coin> = []
     private capacity: number
@@ -35,11 +40,14 @@ export class Purse {
         return true
     }
 
-    public sortCoins(){
-        this.coins.sort((a, b) => a.compareTo(b))
+    public sortCoins(desc:boolean = false): void {
+        this.coins.sort((a, b) => {
+            if(desc) return b.compareTo(a)
+            else return a.compareTo(b)
+        })
     }
 
-    public get(value: number) {
+    public getCoin(value: number): Coin {
         const index = this.coins.findIndex((coin) => coin.getValue() == value)
         const coin = this.coins[index]
         if (index >= 0) {
@@ -52,7 +60,14 @@ export class Purse {
         console.log(this.coins.map(coin => coin.getValue()))
     }
 
-    public static find(owner: string){
-        return Database[owner]
+    /**
+     * ดึงข้อมูลเป๋าตังจากฐานข้อมูล
+     * โดยระบุชื่อเจ้าของ
+     * @var owner ชื่อเจ้าของ
+     */
+    public static find(owner: string): Purse{
+        const purse = Database[owner]
+        if(!purse) throw new Error("PurseNotFound");
+        return purse
     }
 }

@@ -1,6 +1,6 @@
-import { Currency } from "../Interfaces/Currency"
+import { Comparable } from "../Interfaces/Currency"
 
-export class Coin implements Currency{
+export class Coin implements Comparable{
     private value: number
 
     constructor(value:number){
