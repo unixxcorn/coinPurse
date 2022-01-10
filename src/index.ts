@@ -1,8 +1,14 @@
+import { Database } from "./database";
 import { Coin } from "./Models/Coin";
 import { Purse } from "./Models/CoinPurse";
 
-const jobPurse = new Purse(5)
-const canePurse = new Purse(5)
+// สมมุติว่ามี DB
+Database['job'] = new Purse(5)
+Database['cane'] = new Purse(5)
+
+// เริ่มโปรแกรม
+const jobPurse = Purse.find('job')
+const canePurse = Purse.find('cane')
 
 console.table([jobPurse, canePurse])
 
@@ -11,6 +17,12 @@ jobPurse.insert(new Coin(5))
 jobPurse.insert(new Coin(10))
 jobPurse.insert(new Coin(10))
 jobPurse.insert(new Coin(1))
+
+// จ็อบกลัวตังค์หาย จ็อบเลยเรียงเหรียญ
+jobPurse.printCoinList()
+jobPurse.sortCoins()
+jobPurse.printCoinList()
+
 
 console.log('จ็อบมีเงินรวม', jobPurse.getBalance())
 

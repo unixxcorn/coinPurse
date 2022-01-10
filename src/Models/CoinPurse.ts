@@ -1,3 +1,4 @@
+import { Database } from '../database'
 import { Coin } from './Coin'
 
 export class Purse {
@@ -34,6 +35,10 @@ export class Purse {
         return true
     }
 
+    public sortCoins(){
+        this.coins.sort((a, b) => a.compareTo(b))
+    }
+
     public get(value: number) {
         const index = this.coins.findIndex((coin) => coin.getValue() == value)
         const coin = this.coins[index]
@@ -41,5 +46,13 @@ export class Purse {
             this.coins.splice(index, 1)
         }
         return coin
+    }
+
+    public printCoinList(){
+        console.log(this.coins.map(coin => coin.getValue()))
+    }
+
+    public static find(owner: string){
+        return Database[owner]
     }
 }
